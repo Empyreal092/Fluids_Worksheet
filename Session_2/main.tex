@@ -1,0 +1,147 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+\usepackage{esint}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0230, PHYS-UA 180\\Introduction to Fluid Dynamics}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{February 2nd, 2022}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Rate of strain tensor: examples}
+\subsection{Shear flow}
+Take a velocity field with $u=y$ and $v,w=0$. 
+\begin{enumerate}
+    \item Calculate its velocity gradient tensor.
+    \item What is its symmetric and anti-symmetric parts?
+    \item What is its divergence and vorticity vector? 
+\end{enumerate}
+
+\subsection{Straining flow}
+Take a velocity field with $u=x$, $v=-y$, and $w=0$. 
+\begin{enumerate}
+    \item Do the same calculation.
+    \item {[Adapted from \cite{Aris_62}, Exercise 4.42.1]} Take a line connecting the origin and a fluid parcel, show that if $\theta$ is the angle between the line and the $x$-axis, then the rate of change of $\log\tan\theta$ is constant along a particle path. 
+\end{enumerate}
+
+\subsection{}
+[From \cite{Aris_62}, Exercise 4.45.1] Take the velocity field
+\begin{align}
+    \ve v = \alpha\ve \omega + \ve \omega \times \ve x.
+\end{align}
+\begin{enumerate}
+    \item Do the same calculation.
+    \item Interpret the motion of a fluid parcel in this flow.
+\end{enumerate}
+
+\subsection{Rankine vortex}
+Now we use the cylindrical coordinate with $(r,\theta,z)$. We have the flow field
+\begin{align}
+    u_\theta = \begin{cases}
+        \Omega r, & r<a\\
+        \dsp{\frac{\Omega a^2}{r}}, & r<a
+    \end{cases}
+\end{align}
+and $u_r = u_z = 0$. 
+\begin{enumerate}
+    \item Do the same calculation (by converting the velocity into the Cartesian coordinate).
+\end{enumerate}
+We will come back to this example to practice polar coordinate and to study vorticity and circulation.  
+
+\section{From divergence theorem to Green's theorem}
+\subsection{}
+[From \cite{Aris_62}, Exercise 3.31.3] By taking $\ve a$ to be independent of $x$, and $a_3 = 0$, show using divergence theorem that if $A$ is an area in the $(x,y)$-plane bounded by a curve $C$, then
+\begin{align}
+    \iint_A \frac{\pe a_1}{\pe x}+\frac{\pe a_2}{\pe y}\;\de A = \oint_C a_1t_2-a_2t_1\;\de s
+\end{align}
+where $\ve t=(t_1,t_2)$ is the unit tangent vector to $C$. 
+
+\subsection{}
+[From \cite{Aris_62}, Exercise 3.31.4] Deduce from the previous question that
+\begin{align}
+    \iint_A \frac{\pe a_2}{\pe x}-\frac{\pe a_1}{\pe y}\;\de A = \oint_C a_1t_1+a_2t_2\;\de s
+\end{align}
+The right hand side can be written as
+\begin{align}
+    \oint_C a_1\de x+a_2\de y
+\end{align}
+and we have derived the Green's theorem.
+
+\section{Green's identity}
+\subsection{}
+We take a 3D scalar field $\psi$ and a 3D vector field $\ve\Gamma$ with sufficient smoothness defined on some region $U \subset \mathbb{R}^3$. Show the identity
+\begin{align}
+    \iiint_U \left( \psi \, \nabla \cdot \ve{\Gamma} + \ve{\Gamma} \cdot \nabla \psi\right)\, dV  = \oiint_{\partial U} \psi \left( \ve{\Gamma} \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\ve{\Gamma}\cdot d\ve{S}.\label{eq:green_1st_gen}
+\end{align}
+
+\subsection{}
+Use \eqref{eq:green_1st_gen} to show the Green's first identity. Take 3D scalar fields $\psi$ and $\varphi$ both with sufficient smoothness:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi + \nabla \psi \cdot \nabla \varphi \right)\, dV  = \oiint_{\partial U} \psi \left( \nabla \varphi \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\,\nabla\varphi\cdot d\ve{S}.
+\end{align}
+
+\subsection{}
+Show the Green's second identity:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi - \varphi \, \nabla^2 \psi\right)\, dV = \oiint_{\partial U} \left( \psi \nabla \varphi - \varphi \nabla \psi\right)\cdot d\ve{S}.
+\end{align}
+This shows that the Laplacian is a self-adjoint operator for functions vanishing on the boundary so that the right hand side of the above identity is zero.
+
+
+\section{Expanding gas}
+\subsection{In a tube}
+We have a velocity field $u=x$ and $v,w=0$. 
+\begin{enumerate}
+    \item Write down the ``differential form'' of the mass conservation equation.
+    \item Use the method of characteristic to solve for the density $\rho(x,t)$.
+\end{enumerate}
+
+\subsection{In free 3D space}
+Now have a velocity field $u=x$, $v=y$, and $w=z$. Do the same calculation.
+
+
+    
+\vfill
+\printbibliography
+
+
+\end{document}
