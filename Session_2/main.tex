@@ -19,9 +19,9 @@
 % -----------------------------------
 \usepackage{fancyhdr}
 \newcommand\course{MATH-UA.0230, PHYS-UA 180\\Introduction to Fluid Dynamics}
-\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\hwnumber{2}                  % <-- homework number
 \newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
-\newcommand\NetIDb{February 2nd, 2022}
+\newcommand\NetIDb{February 9th, 2022}
 \pagestyle{fancyplain}
 \headheight 35pt
 \lhead{\NetIDa\\\NetIDb}
@@ -47,97 +47,46 @@
 \input{../command.tex}
 \begin{document}
 
-\section{Rate of strain tensor: examples}
-\subsection{Shear flow}
-Take a velocity field with $u=y$ and $v,w=0$. 
-\begin{enumerate}
-    \item Calculate its velocity gradient tensor.
-    \item What is its symmetric and anti-symmetric parts?
-    \item What is its divergence and vorticity vector? 
-\end{enumerate}
+\section{Deformation tensor: examples}
+% \subsection{Shear flow}
+% Take a velocity field with $u=y$ and $v,w=0$. 
+% \begin{enumerate}
+%     \item Calculate the deformation tensor $\ve F$.
+%     \item Verify the Lagrangian equation of evolution for $\ve F$
+%     \begin{align}
+%         \left.\frac{\pe\ve F}{\pe t}\right|_{\ve\alpha} = \nabla_{\ve x}\ve v\cdot \ve F
+%     \end{align}
+% \end{enumerate}
 
 \subsection{Straining flow}
 Take a velocity field with $u=x$, $v=-y$, and $w=0$. 
 \begin{enumerate}
-    \item Do the same calculation.
-    \item {[Adapted from \cite{Aris_62}, Exercise 4.42.1]} Take a line connecting the origin and a fluid parcel, show that if $\theta$ is the angle between the line and the $x$-axis, then the rate of change of $\log\tan\theta$ is constant along a particle path. 
+    \item Calculate the deformation tensor $\ve F$.
+    \item Verify the Lagrangian equation of evolution for $\ve F$
+        \begin{align}
+            \left.\frac{\pe\ve F}{\pe t}\right|_{\ve\alpha} = \nabla_{\ve x}\ve v\cdot \ve F.
+        \end{align}
 \end{enumerate}
 
-\subsection{}
-[From \cite{Aris_62}, Exercise 4.45.1] Take the velocity field
-\begin{align}
-    \ve v = \alpha\ve \omega + \ve \omega \times \ve x.
-\end{align}
+% \subsection{}
+Take a velocity field with $u=2x^{1/2}$, $v=2y^{1/2}$, and $w=2z^{1/2}$. 
 \begin{enumerate}
     \item Do the same calculation.
-    \item Interpret the motion of a fluid parcel in this flow.
+    \item Also verify the Eulerian equation of evolution for $\ve F$:
+        \begin{align}
+            \left.\frac{\pe\ve F}{\pe t}\right|_{\ve x}+(\ve v\cdot\nabla_{\ve x})\ve F = \nabla_{\ve x}\ve v\cdot \ve F.\label{eq:F_eq_euler}
+        \end{align}
 \end{enumerate}
 
-\subsection{Rankine vortex}
-Now we use the cylindrical coordinate with $(r,\theta,z)$. We have the flow field
+\section{Evolution of an infinitesimal material line element}
+Take an infinitesimal material line element $\delta\ve \ell$, where it is the
+infinitesimal material element connecting $\ve\ell$ and $\ve\ell+\delta\ve\ell$. Show that its evolution equation follows the equation
 \begin{align}
-    u_\theta = \begin{cases}
-        \Omega r, & r<a\\
-        \dsp{\frac{\Omega a^2}{r}}, & r<a
-    \end{cases}
+    \frac{D\delta\ve\ell}{Dt}=\nabla_{\ve x}\ve v\cdot \delta\ve\ell.
 \end{align}
-and $u_r = u_z = 0$. 
-\begin{enumerate}
-    \item Do the same calculation (by converting the velocity into the Cartesian coordinate).
-\end{enumerate}
-We will come back to this example to practice polar coordinate and to study vorticity and circulation.  
+You will do this in the homework using \eqref{eq:F_eq_euler}. I want you to think about it from another perspective: use your physical intuition and argue using infinitesimal time. 
 
-\section{From divergence theorem to Green's theorem}
-\subsection{}
-[From \cite{Aris_62}, Exercise 3.31.3] By taking $\ve a$ to be independent of $x$, and $a_3 = 0$, show using divergence theorem that if $A$ is an area in the $(x,y)$-plane bounded by a curve $C$, then
-\begin{align}
-    \iint_A \frac{\pe a_1}{\pe x}+\frac{\pe a_2}{\pe y}\;\de A = \oint_C a_1t_2-a_2t_1\;\de s
-\end{align}
-where $\ve t=(t_1,t_2)$ is the unit tangent vector to $C$. 
-
-\subsection{}
-[From \cite{Aris_62}, Exercise 3.31.4] Deduce from the previous question that
-\begin{align}
-    \iint_A \frac{\pe a_2}{\pe x}-\frac{\pe a_1}{\pe y}\;\de A = \oint_C a_1t_1+a_2t_2\;\de s
-\end{align}
-The right hand side can be written as
-\begin{align}
-    \oint_C a_1\de x+a_2\de y
-\end{align}
-and we have derived the Green's theorem.
-
-\section{Green's identity}
-\subsection{}
-We take a 3D scalar field $\psi$ and a 3D vector field $\ve\Gamma$ with sufficient smoothness defined on some region $U \subset \mathbb{R}^3$. Show the identity
-\begin{align}
-    \iiint_U \left( \psi \, \nabla \cdot \ve{\Gamma} + \ve{\Gamma} \cdot \nabla \psi\right)\, dV  = \oiint_{\partial U} \psi \left( \ve{\Gamma} \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\ve{\Gamma}\cdot d\ve{S}.\label{eq:green_1st_gen}
-\end{align}
-
-\subsection{}
-Use \eqref{eq:green_1st_gen} to show the Green's first identity. Take 3D scalar fields $\psi$ and $\varphi$ both with sufficient smoothness:
-\begin{align}
-    \iiint_U \left( \psi \, \nabla^2 \varphi + \nabla \psi \cdot \nabla \varphi \right)\, dV  = \oiint_{\partial U} \psi \left( \nabla \varphi \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\,\nabla\varphi\cdot d\ve{S}.
-\end{align}
-
-\subsection{}
-Show the Green's second identity:
-\begin{align}
-    \iiint_U \left( \psi \, \nabla^2 \varphi - \varphi \, \nabla^2 \psi\right)\, dV = \oiint_{\partial U} \left( \psi \nabla \varphi - \varphi \nabla \psi\right)\cdot d\ve{S}.
-\end{align}
-This shows that the Laplacian is a self-adjoint operator for functions vanishing on the boundary so that the right hand side of the above identity is zero.
-
-
-\section{Expanding gas}
-\subsection{In a tube}
-We have a velocity field $u=x$ and $v,w=0$. 
-\begin{enumerate}
-    \item Write down the ``differential form'' of the mass conservation equation.
-    \item Use the method of characteristic to solve for the density $\rho(x,t)$.
-\end{enumerate}
-
-\subsection{In free 3D space}
-Now have a velocity field $u=x$, $v=y$, and $w=z$. Do the same calculation.
-
+Hint: local in time, the velocity at $\ve\ell$ is $\ve v$ and the velocity at $\ve\ell+\delta\ve\ell$ is $\ve v+\delta\ve v$. What is $\delta\ve v$?
 
     
 \vfill
