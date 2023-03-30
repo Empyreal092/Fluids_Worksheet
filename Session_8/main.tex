@@ -15,14 +15,14 @@
   linkbordercolor={0 0 1}
 }
 % -----------------------------------
-\usepackage[authordate,backend=biber]{biblatex-chicago}
+\usepackage[style=authoryear-icomp,backend=biber]{biblatex}
 \addbibresource{citation.bib}
 % -----------------------------------
 \usepackage{fancyhdr}
 \newcommand\course{MATH-UA.0230, PHYS-UA 180\\Introduction to Fluid Dynamics}
-\newcommand\hwnumber{6}                  % <-- homework number
+\newcommand\hwnumber{8}                  % <-- homework number
 \newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
-\newcommand\NetIDb{March 9th, 2023}
+\newcommand\NetIDb{March 30th, 2023}
 \pagestyle{fancyplain}
 \headheight 35pt
 \lhead{\NetIDa\\\NetIDb}
@@ -48,92 +48,92 @@
 \input{../command.tex}
 \begin{document}
 
-\section{Reynolds number for simple model for river flow}
-[From \cite{Falkovich_18}, \S 1.4.3] 
-We use a simple inclined plane as a model for river flow.
-\begin{figure}[H]
+\section{Examples of vorticity and circulation}
+When we deal with vorticity and circulation, it is most convenient to work with polar coordinate. In (2D) polar coordinate, the vorticity (scalar) is
+\begin{align}
+    \omega = \frac{1}{r}\left( \frac{\pe (ru^\theta)}{\pe r}-\frac{\pe u^r}{\pe \theta} \right).
+\end{align}
+We will not derive this here, but a good reference is \S 5.1 and \S 5.6 of \cite{Brannon_04}. 
+
+\subsection{Rigid body rotation}
+For a body in rigid body rotation, the velocity distribution is given by
+\begin{align}
+    u^\theta = \Omega r \qdt{and} u^r = 0
+\end{align}
+where $\Omega$ is the angular velocity of the fluid (rigid body). Calculate the vorticity of this flow. How is it related to the angular velocity?
+
+\subsection{Rankine vortex}
+We have the flow field
+\begin{align}
+    u^\theta = \begin{cases}
+        \Omega r, & r<a\\
+        \dsp{\frac{\Omega a^2}{r}}, & r\geq a
+    \end{cases}
+\end{align}
+and $u^r = 0$. 
+\begin{itemize}
+    \item Calculate the vorticity of this flow.
+    \item Calculate the circulation of this flow around a circle with radius $R$.
+\end{itemize}
+
+\subsection{Point vortex}
+We take the $a\to 0$ limit of the Rankine vortex. For this, we define $K = \Omega a^2$ and keep this a constant as we take $a$ to zero. 
+\begin{itemize}
+    \item How does the vorticity change as we take $a\to 0$.
+    \item What is now the circulation of this flow around a circle with radius $R>a$.
+\end{itemize}
+
+\section{Point vortex velocity as a Green's function}
+
+\subsection{Biot–Savart law}
+We have the velocity field around a single point vortex. Use this and the idea of Green's function to write down the velocity field for a vortex field. This is just the 2D Biot–Savart law relating vorticity and velocity.
+
+\subsection{Green's function for the Poisson equation}
+Incompressible flow can be represented using a streamfunction $\psi$, where\footnote{sometimes it is defined with the opposite sign}
+\begin{align}
+    (u,v) = (-\psi_y,\psi_x). 
+\end{align}
+
+\begin{itemize}
+    \item Show that the streamfunction is the solution to the Poisson equation with the vorticity on the RHS:
+        \begin{align}
+            \nabla^2\psi = \omega.
+        \end{align}
+    \item Convert the Biot–Savart law to a streamfunction. This streamfunction of the Green's function for the Poisson equation. Now you could solve the Poisson equation in $\mathbb{R}^2$.
+\end{itemize}
+
+\section{Inviscid, incompressible vortex dynamics near a wall}
+Now we study inviscid, incompressible flow in the upper half plane. At the wall we use the no penetration boundary condition:
+\begin{align}
+    v(0,y) = 0.
+\end{align}
+
+\subsection{}
+Place a point vortex into the upper plane. 
+\begin{itemize}
+    \item How could we make sure the flow satisfies the boundary condition?
+    \item Write this in the context of the Biot–Savart law.
+\end{itemize}
+
+Hint: try placing an imaginary point vortex in the lower half plane.
+
+\subsection{}
+Think about the flow using a streamfunction. 
+\begin{itemize}
+    \item What is the boundary condition on the streamfunction? 
+    \item Write this using the Green's function formula for the solution of the Poisson equation.
+\end{itemize}
+
+\section{Two interesting and advanced vortices examples}
+\subsection{Kirchhoff Vortex} Kirchhoff vortex is a compact elliptical patch of vorticity that rotate while keeping its shape. It is a generalization of the Rankine vortex and it is the basis of study of instability. 
+
+For details of the Kirchhoff Vortex, see \url{http://www.damtp.cam.ac.uk/user/hl278/KirchoffVortex.pdf}. For an example study of its stability, see \cite{MitchellRossi_08}.
+
+\subsection{Lamb–Chaplygin dipole} The Lamb–Chaplygin dipole has also compact vorticity but it has positive and negative vorticity inside. It is a steady solution to the Euler equation. For more see \cite{MeleshkoHeijst_94}, image above from wikipedia.
+\begin{figure}
     \centering
-    \includegraphics[width=0.55\textwidth]{figs/incline_river}
+    \includegraphics[width = 0.5\textwidth]{figs/Lamb-Chaplygin_dipole.png}
 \end{figure}
-
-In lecture you have the obtained the solution of:
-\begin{align}
-    p(z) &= p_0+\rho g(h-z)\cos\alpha,\\
-    v(z) &= \frac{\rho g\sin\alpha}{2\eta}z(2h-z).
-\end{align}
-
-% \subsection{}
-% Assume we have a steady solution to the Navier-Stokes equation, show $(\ve v\cdot\nabla)\ve v = 0$. This implies we have an effectively linear equation
-% \begin{align}
-%     -\nabla p+\eta\nabla^2\ve v+\rho\ve g = 0.
-% \end{align}
-
-% Write the equation for the $x$ and $z$ direction defines in the figure.
-
-% \subsection{}
-% What should be boundary condition be for $v$ and $p$ at the surface and at the bottom? Solve for them.
-
-\subsection{}
-Take the kinematic viscosity of water to be $\nu = \eta/\rho = 10^{-2}\;\text{cm}^2\text{s}^{-1}$. Calculate $\ve v$ at the surface for a rain puddle with thickness $h = 1\;\text{mm}$ on a slope $\alpha\sim 10^{-2}$.
-
-\subsection{}
-How about a slow plain rivers (like the Danube) with $h \sim 10\;\text{m}$ on a slope $\alpha\sim 10^{-4}$?
-
-\subsection{}
-Which speed is reasonable?
-
-\subsection{}
-The unrealistic high velocity for the river case above is because in reality rivers are turbulent. Calculate the Reynolds number for the two cases.
-
-\section{Vorticity equation derivation}
-Remember that we have the vector identity:
-\begin{align}
-    \ve v(\nabla\cdot\ve v) = \frac{1}{2}\nabla\ve v^2-\ve v\times\ve \omega.\label{eq:lamb_ident}
-\end{align}
-To obtain the vorticity equation, we need to take the curl of this. 
-
-\subsection{}
-Derive the vector identity:
-\begin{align}
-    \nabla\times(\ve a\times\ve b) &= \ve a(\nabla \cdot \ve{b}) \,-\, \ve{b}(\nabla {\cdot} \ve{a})+(\ve{b} {\cdot} \nabla) \ve{a} \,-\, (\ve{a} {\cdot} \nabla) \ve{b}.
-\end{align}
-Hint: remember we have
-\begin{align}
-    \epsilon_{ijk}\epsilon_{k\ell m} = \delta_{i\ell}\delta_{jm}-\delta_{im}\delta_{j\ell}.\label{eq:perm_prod_ident}
-\end{align}
-
-\subsection{}
-Show that the compressible vorticity equation is
-\begin{align}
-    \frac{\pe\ve\omega}{\pe t}+(\ve v\cdot \nabla)\ve\omega = (\ve \omega\cdot \nabla)\ve v-\ve\omega\nabla\cdot\ve v
-\end{align}
-The incompressible version is an straightforward corollary. 
-
-\section{Vorticity equation for compressible flows}
-[From \cite{Vallis_17}, \S 4.2] Using mass-conservation for compressible flows:
-\begin{align}
-    \frac{\pe\rho}{\pe t}+\nabla\cdot(\rho\ve v) = 0
-\end{align}
-Obtain the alternative compressible vorticity equation:
-\begin{align}
-    \frac{\pe\tilde{\ve\omega}}{\pe t}+(\ve v\cdot \nabla)\tilde{\ve\omega} = (\tilde{\ve \omega}\cdot \nabla)\ve v
-\end{align}
-where
-\begin{align}
-    \tilde{\ve \omega} = \frac{\ve\omega}{\rho}.
-\end{align}
-
-\section{Fundamental solution to the heat equation}
-For details, see \S 5.1 and 5.2 of \cite{ShearerLevy_15}.
-
-\subsection{}
-Self-similar solution from dimensional analysis. 
-
-\subsection{}
-Fundamental solution is the Green's function.
-
-
-
 
     
 \vfill
