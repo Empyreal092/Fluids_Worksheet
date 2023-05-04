@@ -66,7 +66,7 @@
 %\addcontentsline{toc}{chapter}{READ ME}
 %\phantomsection
 \section{READ ME}
-This document is a compilation of the worksheets used in the recitation sessions for \href{https://math.nyu.edu/dynamic/courses/undergrad/math-ua-230/}{NYU Undergraduate Introduction To Fluid Dynamics} in Spring of 2023. 
+This document is a compilation of the worksheets used in the recitation sessions for \href{https://math.nyu.edu/dynamic/courses/undergrad/math-ua-230/}{NYU Undergraduate Introduction To Fluid Dynamics} in Spring of 2023. We did not do all problems in this documents in class.
 
 The \LaTeX\ files of this document can be found at \url{https://github.com/Empyreal092/UgradFluids_Worksheet}.
 
@@ -161,8 +161,8 @@ This shows that the Laplacian is a self-adjoint operator for functions vanishing
 %     \item Use the method of characteristic to solve for the density $\rho(x,t)$.
 % \end{enumerate}
 
-\subsection{In free 3D space}
-Now have a velocity field $u=x$, $v=y$, and $w=z$. Do the same calculation.
+% \subsection{In free 3D space}
+% Now have a velocity field $u=x$, $v=y$, and $w=z$. Do the same calculation.
 
 \section{Deformation tensor: examples}
 \subsection{Straining flow}
@@ -431,18 +431,18 @@ The unrealistic high velocity for the river case above is because in reality riv
 \section{Vorticity equation derivation}
 Remember that we have the vector identity:
 \begin{align}
-    \ve v(\nabla\cdot\ve v) = \frac{1}{2}\nabla\ve v^2-\ve v\times\ve \omega.\label{eq:lamb_ident}
+    \ve v(\nabla\cdot\ve v) = \frac{1}{2}\nabla\ve v^2-\ve v\times\ve \omega.
 \end{align}
 To obtain the vorticity equation, we need to take the curl of this. 
 
 \subsection{}
 Derive the vector identity:
 \begin{align}
-    \nabla\times(\ve a\times\ve b) &= \ve a(\nabla \cdot \ve{b}) \,-\, \ve{b}(\nabla {\cdot} \ve{a})+(\ve{b} {\cdot} \nabla) \ve{a} \,-\, (\ve{a} {\cdot} \nabla) \ve{b}.
+    \nabla\times(\ve a\times\ve b) &= \ve a(\nabla \cdot \ve{b}) - \ve{b}(\nabla \cdot \ve{a})+(\ve{b} \cdot \nabla) \ve{a} \,-\, (\ve{a} \cdot \nabla) \ve{b}.
 \end{align}
 Hint: remember we have
 \begin{align}
-    \epsilon_{ijk}\epsilon_{k\ell m} = \delta_{i\ell}\delta_{jm}-\delta_{im}\delta_{j\ell}.\label{eq:perm_prod_ident}
+    \epsilon_{ijk}\epsilon_{k\ell m} = \delta_{i\ell}\delta_{jm}-\delta_{im}\delta_{j\ell}.
 \end{align}
 
 \subsection{}
@@ -474,6 +474,143 @@ Self-similar solution from dimensional analysis.
 
 \subsection{}
 Fundamental solution is the Green's function.
+
+\section{Cylindrical coordinate}
+Derivation I use is in \S5.1 and \S5.5 of \cite{Brannon_04}.
+
+\section{Examples of vorticity and circulation}
+When we deal with vorticity and circulation, it is most convenient to work with polar coordinate. In (2D) polar coordinate, the vorticity (scalar) is
+\begin{align}
+    \omega = \frac{1}{r}\left( \frac{\pe (ru^\theta)}{\pe r}-\frac{\pe u^r}{\pe \theta} \right).
+\end{align}
+
+\subsection{Rigid body rotation}
+For a body in rigid body rotation, the velocity distribution is given by
+\begin{align}
+    u^\theta = \Omega r \qdt{and} u^r = 0
+\end{align}
+where $\Omega$ is the angular velocity of the fluid (rigid body). Calculate the vorticity of this flow. How is it related to the angular velocity?
+
+\subsection{Rankine vortex}
+We have the flow field
+\begin{align}
+    u^\theta = \begin{cases}
+        \Omega r, & r<a\\
+        \dsp{\frac{\Omega a^2}{r}}, & r\geq a
+    \end{cases}
+\end{align}
+and $u^r = 0$. 
+\begin{itemize}
+    \item Calculate the vorticity of this flow.
+    \item Calculate the circulation of this flow around a circle with radius $R$.
+\end{itemize}
+
+\subsection{Point vortex}
+We take the $a\to 0$ limit of the Rankine vortex. For this, we define $K = \Omega a^2$ and keep this a constant as we take $a$ to zero. 
+\begin{itemize}
+    \item How does the vorticity change as we take $a\to 0$.
+    \item What is now the circulation of this flow around a circle with radius $R>a$.
+\end{itemize}
+
+\section{Point vortex velocity as a Green's function}
+
+\subsection{Biot–Savart law}
+We have the velocity field around a single point vortex. Use this and the idea of Green's function to write down the velocity field for a vortex field. This is just the 2D Biot–Savart law relating vorticity and velocity.
+
+\subsection{Green's function for the Poisson equation}
+Incompressible flow can be represented using a streamfunction $\psi$, where\footnote{sometimes it is defined with the opposite sign}
+\begin{align}
+    (u,v) = (-\psi_y,\psi_x). 
+\end{align}
+
+\begin{itemize}
+    \item Show that the streamfunction is the solution to the Poisson equation with the vorticity on the RHS:
+        \begin{align}
+            \nabla^2\psi = \omega.
+        \end{align}
+    \item Convert the Biot–Savart law to a streamfunction. This streamfunction of the Green's function for the Poisson equation. Now you could solve the Poisson equation in $\mathbb{R}^2$.
+\end{itemize}
+
+\section{Inviscid, incompressible vortex dynamics near a wall}
+Now we study inviscid, incompressible flow in the upper half plane. At the wall we use the no penetration boundary condition:
+\begin{align}
+    v(0,y) = 0.
+\end{align}
+
+\subsection{}
+Place a point vortex into the upper plane. 
+\begin{itemize}
+    \item How could we make sure the flow satisfies the boundary condition?
+    \item Write this in the context of the Biot–Savart law.
+\end{itemize}
+
+Hint: try placing an imaginary point vortex in the lower half plane.
+
+\subsection{}
+Think about the flow using a streamfunction. 
+\begin{itemize}
+    \item What is the boundary condition on the streamfunction? 
+    \item Write this using the Green's function formula for the solution of the Poisson equation.
+\end{itemize}
+
+\section{Two interesting and advanced vortices examples}
+\subsection{Kirchhoff Vortex} Kirchhoff vortex is a compact elliptical patch of vorticity that rotate while keeping its shape. It is a generalization of the Rankine vortex and it is the basis of study of instability. 
+
+For details of the Kirchhoff Vortex, see \url{http://www.damtp.cam.ac.uk/user/hl278/KirchoffVortex.pdf}. For an example study of its stability, see \cite{MitchellRossi_08}.
+
+\subsection{Lamb–Chaplygin dipole} The Lamb–Chaplygin dipole has also compact vorticity but it has positive and negative vorticity inside. It is a steady solution to the Euler equation. For more see \cite{MeleshkoHeijst_94}, image above from wikipedia.
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.5\textwidth]{../Session_8/figs/Lamb-Chaplygin_dipole}
+\end{figure}
+
+\chapter{Potential Flow}
+\section{Helmholtz decomposition}
+The Helmholtz decomposition state that a velocity field $\ve v$ that decays fast enough at infinity, or is on a bounded domain, can be decomposed into a curl-free component and a divergence-free component \parencite{Petrascheck_15}
+\begin{align}
+    \ve v = -\nabla\Phi+\nabla\times \ve A. 
+\end{align}
+
+\subsection{}
+Show that this is a generalization of the 2D situation where we have scalar potential and stream functions. 
+
+\subsection{}
+How would you find these two potentials if you know the divergence and vorticity in the domain?
+
+\section{Baby steps in complex analysis. }
+We will learn a little bit of complex analysis. My reference is \cite{SteinShakarchi_10}. 
+
+\section{Bernoulli's theorem for irrotational flow}
+Because the velocity can be expressed as the gradient of a potential, now the fluid can be unsteady. 
+
+\chapter{Instability}
+\section{Kelvin-Helmholtz instability}
+We will investigate the Kelvin-Helmholtz instability from a Fourier mode perspective. The reference I will use is \S9.2 of \cite{Vallis_17}.
+
+\section{Centrifugal instability}
+A circular patch of vorticity can be unstable too. We will replicate some of the procedure for the study of Kelvin-Helmholtz instability to circular vortex patch. The reference is \S 3.3 of \cite{McWilliams_06}.
+
+\chapter{Stokes Flow}
+\section{Pressure is a Lagrange multiplier for incompressible flow}
+We have talked about how pressure is a Lagrange multiplier that enforces incompressibility. This is the easier to show for Stokes flow. Show that the Stokes equation on $\Omega$
+\begin{align}
+    &-\mu\lap \ve u + \nabla p = f\\
+    &\qquad \left.\ve u\right|_{\pe\Omega} = 0\\
+    &\qquad\nabla\cdot \ve u = 0
+\end{align}
+is equivalent to a constrained energy minimization problem:
+\begin{align}
+    &\min_{\ve u} \frac{\mu}{2}\int_\Omega \norm{\nabla\ve u}^2-f\ve u\;\de \ve x\\
+    &\text{subject to }\nabla\cdot \ve u = 0.
+\end{align}
+
+\section{Uniqueness of solution for Stokes}
+Show that the solution to the Stokes system is unique from the energy minimizing statement above. This is a similar but slightly different approach compared to the one in \cite[\S 7.4]{Acheson_90}. 
+
+\section{Life at low Reynolds number}
+If we have time left, we will take a look at the classic and highly readable paper \cite{Purcell_77}. Life at low Reynolds number is counter-intuitive and full of surprise.
+
+
 
 \newpage
 \printbibliography
